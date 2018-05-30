@@ -1,0 +1,35 @@
+.delete_item, .edit_item, .add {
+	cursor: pointer;
+}
+
+.currency {
+	background-color: #f3501d;
+}
+.currency p {
+	float: left;
+	margin-right: 15px;
+}
+
+.currency p span {
+	color: #fff;
+}
+
+[type="radio"]:not(:checked)+span:before, [type="radio"]:not(:checked)+span:after {
+    background-color: #fff;
+}
+
+.edit_item {
+	margin-right: 10px;
+}
+
+.modal.bottom-sheet {
+    max-height: inherit;
+}
+
+.title, .title_total {
+	padding: 20px 0;
+}
+
+table>thead {
+	background-color: #f9f9f9;
+}
