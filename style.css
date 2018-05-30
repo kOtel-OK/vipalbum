@@ -18,6 +18,17 @@
     background-color: #fff;
 }
 
+.privat_container {
+	display: none;
+}
+
+.privat {
+	height: 52px;
+	background-image: url(img/privat.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 .edit_item {
 	margin-right: 10px;
 }

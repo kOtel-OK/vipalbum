@@ -1,16 +1,18 @@
 
 const eRates = {
 	rur: null,
-	dollar: null
+	usd: null
 }
 
 //global JSONP function for exchange rates
 const success = (data) => {
 	console.log(data);
-	eRates.rur = data[2]['buy'];
-	eRates.dollar = data[0]['buy'];
+//	eRates.rur = data[2]['buy'];
+	eRates.rur = data[data.findIndex(el => el.ccy === 'RUR')]['buy'];
+	eRates.usd = data[data.findIndex(el => el.ccy === 'USD')]['buy'];
 };
 
+//script injection for crossdomain access
 const addScript = (src) => {
   const script = document.createElement('script');
 	
@@ -57,9 +59,14 @@ const app = (function () {
 				totalSum: document.querySelector('.total_sum'),
 				totalPaided: document.querySelector('.paided'),
 				totalDebt: document.querySelector('.debt'),
+		    exSum: document.querySelector('.ex_sum'),
+        exPaided: document.querySelector('.ex_paided'),
+        exDebt: document.querySelector('.ex_debt'),
 				form: document.getElementById('modal1'),
+		    formTitle: document.querySelector('.modal-content h4'),
 		    checkCurrency: document.querySelector('.currency'),
-		    currrentCurrencyNode: document.querySelectorAll('.current_currency')
+		    currrentCurrencyNode: document.querySelectorAll('.current_currency'),
+		    privatContainer: document.querySelector('.privat_container')
 	};
 	
 	console.log(nodes.checkCurrency);
@@ -146,7 +153,7 @@ const app = (function () {
 			parent.removeChild(document.getElementById(currentID));
 			
 	  	if (items.length === 0) {
-		  	nodes.itemContainer.innerHTML = '<tr><td colspan="8">Нет альбомов. Нажмите на <b>плюс</b>, чтобы добавить новый</td></tr>';
+		  	nodes.itemContainer.innerHTML = '<tr><td colspan="8">Нет заказов. Нажмите на <b>плюс</b>, чтобы добавить новый</td></tr>';
 	  	}
 			
 			total();
@@ -156,6 +163,7 @@ const app = (function () {
 		if (ev.target.classList.contains('edit_item')) {
 			console.log(currentID);
 			nodes.addItem.textContent = 'Изменить';
+			nodes.formTitle.textContent = 'Внести изменения';
 			modal.open();
 			isNewItem = false;
 			console.log(isNewItem);
@@ -200,6 +208,16 @@ const app = (function () {
 		nodes.totalItems.textContent = items.length;
 		nodes.totalPaided.textContent = paidedSum;
 		nodes.totalDebt.textContent = totalS - paidedSum;
+		
+		if (currentCurrency === 'rur') {
+			nodes.exSum.textContent = `${Math.round(totalS * eRates.rur * 20) / 20} грн.`;
+			nodes.exPaided.textContent =  `${Math.round(paidedSum * eRates.rur * 20) / 20} грн.`;
+			nodes.exDebt.textContent = `${Math.round((totalS - paidedSum) * eRates.rur * 20) / 20} грн.`;
+		} else if (currentCurrency === 'usd') {
+			nodes.exSum.textContent = `${Math.round(totalS * eRates.usd * 20) / 20} грн.`;
+			nodes.exPaided.textContent =  `${Math.round(paidedSum * eRates.usd * 20) / 20} грн.`;
+			nodes.exDebt.textContent = `${Math.round((totalS - paidedSum) * eRates.usd * 20) / 20} грн.`;
+		}
 	};
 	
 //edit item function	
@@ -222,17 +240,26 @@ const app = (function () {
 	
 //change currency function
   const changeCurrency = (ev) => {
+		const displayTable = {
+			row() {nodes.privatContainer.style = 'display: table-row'},
+			none() {nodes.privatContainer.style = 'display: none'}
+		};
+		
 		currentCurrency = ev.target.value;
+		
 		Array.from(nodes.currrentCurrencyNode).forEach(el => {
 			switch (currentCurrency) {
 				case 'uah':
 					el.textContent = 'грн.';
+					displayTable.none();
 					break;
 				case 'rur':
 					el.textContent = 'руб.';
+					displayTable.row();
 					break;
 			  case 'usd':
 					el.textContent = 'дол.';
+					displayTable.row();
 					break;
 			}
 		})
@@ -240,7 +267,8 @@ const app = (function () {
 
 //click on plus button to open modal
 	nodes.addBtn.addEventListener('click', function () {
-		nodes.addItem.textContent = 'Добавить'
+		nodes.formTitle.textContent = 'Добавить заказ';
+		nodes.addItem.textContent = 'Добавить';
 
 		modal.open();
 		isNewItem = true;
@@ -263,7 +291,10 @@ const app = (function () {
 	});
 	
 //choise of currency
-	nodes.checkCurrency.addEventListener('change', changeCurrency);
+	nodes.checkCurrency.addEventListener('change', (ev) => {
+		changeCurrency(ev);
+		total();
+	});
 
 });
 
