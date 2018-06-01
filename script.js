@@ -7,18 +7,25 @@ const eRates = {
 //global JSONP function for exchange rates
 const success = (data) => {
 	console.log(data);
-//	eRates.rur = data[2]['buy'];
+
 	eRates.rur = data[data.findIndex(el => el.ccy === 'RUR')]['buy'];
 	eRates.usd = data[data.findIndex(el => el.ccy === 'USD')]['buy'];
 };
 
 //script injection for crossdomain access
 const addScript = (src) => {
-  const script = document.createElement('script');
+	try {
+	  const script = document.createElement('script');
 	
-	script.src = src;
-	script.type = 'text/javascript';
-	document.head.appendChild(script);
+   	script.src = src;
+	  script.type = 'text/javascript';
+	  document.head.appendChild(script);
+		
+		throw new Error('Текущий курс валют не доступен');
+		
+	} catch(err) {
+		setTimeout(() => alert(err.message), 1000);
+	}
 };
 	
 addScript('https://api.privatbank.ua/p24api/pubinfo?jsonp=success&exchange&coursid=5');
