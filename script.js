@@ -1,4 +1,4 @@
-
+//global object for exchange rates values
 const eRates = {
 	rur: null,
 	usd: null
@@ -6,33 +6,43 @@ const eRates = {
 
 //global JSONP function for exchange rates
 const success = (data) => {
-	console.log(data);
-
-	eRates.rur = data[data.findIndex(el => el.ccy === 'RUR')]['buy'];
-	eRates.usd = data[data.findIndex(el => el.ccy === 'USD')]['buy'];
+  try {
+		eRates.rur = data[data.findIndex(el => el.ccy === 'RUR')]['buy'];
+	  eRates.usd = data[data.findIndex(el => el.ccy === 'USD')]['buy'];
+		
+	} catch(err) {
+		  noRates();
+	  }
 };
 
 //script injection for crossdomain access
 const addScript = (src) => {
-	try {
+
 	  const script = document.createElement('script');
 	
    	script.src = src;
 	  script.type = 'text/javascript';
 	  document.head.appendChild(script);
-		
-		throw new Error('Текущий курс валют не доступен');
-		
-	} catch(err) {
-		setTimeout(() => alert(err.message), 1000);
-	}
+	
+	  script.addEventListener('error', () => {
+			noRates();
+		})
+	
+};
+
+const noRates = () => {
+	const currencyError = document.querySelector('.currency_error');
+	
+	currencyError.style = 'display: block';
 };
 	
 addScript('https://api.privatbank.ua/p24api/pubinfo?jsonp=success&exchange&coursid=5');
 
 
+
 //main app function
 const app = (function () {
+	
 
 	class Item {
 		constructor(name, maket, price, date, id, orderNumber) {
