@@ -2,7 +2,7 @@
 const eRates = {
 	rur: null,
 	usd: null
-}
+};
 
 //global JSONP function for exchange rates
 const success = (data) => {

@@ -1,0 +1,25 @@
+{
+  "name": "vipalbum_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kOtel-OK/vipalbum.git"
+  },
+  "author": "kOtel_OK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kOtel-OK/vipalbum/issues"
+  },
+  "homepage": "https://github.com/kOtel-OK/vipalbum#readme",
+  "dependencies": {
+    "mongoose": "^5.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
