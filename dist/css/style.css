@@ -1,0 +1,66 @@
+.delete_item, .edit_item, .add {
+	cursor: pointer;
+}
+
+.currency {
+	background-color: #f3501d;
+}
+
+.currency p {
+	float: left;
+	margin-right: 15px;
+}
+
+.currency p span {
+	color: #fff;
+}
+
+.currency_error {
+	display: none;
+	position: absolute;
+  left: calc(50% - 197px);
+	line-height: 20px;
+  background-color: yellow;
+  padding: 0 20px;
+}
+
+.currency_error span {
+	float: right;
+  padding-left: 5px;
+}
+
+.currency_error span, 
+.currency_error i {
+	line-height: 29px;
+	color: red !important;
+}
+
+[type="radio"]:not(:checked)+span:before, [type="radio"]:not(:checked)+span:after {
+    background-color: #fff;
+}
+
+.privat_container {
+	display: none;
+}
+
+.privat {
+	height: 52px;
+	background: url(../img/privat.png) no-repeat center;
+}
+
+.edit_item {
+	margin-right: 10px;
+}
+
+.modal.bottom-sheet {
+	max-height: inherit;
+}
+
+.title,
+.title_total {
+	padding: 20px 0;
+}
+
+table>thead {
+	background-color: #f9f9f9;
+}

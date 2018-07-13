@@ -5,6 +5,7 @@
 .currency {
 	background-color: #f3501d;
 }
+
 .currency p {
 	float: left;
 	margin-right: 15px;
@@ -44,9 +45,7 @@
 
 .privat {
 	height: 52px;
-	background-image: url(../img/privat.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: url(../img/privat.png) no-repeat center;
 }
 
 .edit_item {
@@ -54,10 +53,11 @@
 }
 
 .modal.bottom-sheet {
-    max-height: inherit;
+	max-height: inherit;
 }
 
-.title, .title_total {
+.title,
+.title_total {
 	padding: 20px 0;
 }
 

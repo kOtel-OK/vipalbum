@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/5.1.0/mocha.min.js"></script>
+	<script src="http://www.chaijs.com/chai.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/5.1.0/mocha.min.css">
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Compiled and minified JavaScript -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<!--	<script src="test.js" defer></script>-->
+	<script src="js/eRates.js" defer></script>
+	<script src="js/main.js" defer></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+	
+	<div class="row">
+		<div class="col s12 currency">
+				<p>
+					<label>
+						<input type="radio" name="currency_checker" value="uah" checked>
+						<span>Гривна</span>
+					</label>
+				</p>				
+				<p>
+					<label>
+						<input type="radio" name="currency_checker" value="rur">
+						<span>Рубль</span>
+					</label>
+				</p>				
+				<p>
+					<label>
+						<input type="radio" name="currency_checker" value="usd">
+						<span>Доллар</span>
+					</label>
+				</p>
+<!--				<p><i class="material-icons green-text add">error_outline</i></p>-->
+				<p class="currency_error">
+				<i class="material-icons">error_outline</i>
+					<span>Возникла проблема с получением курса валют</span>
+				</p>
+		</div>
+	</div>
+	
+		<div class="row">
+			<div class="col s12">
+				<h5 class="title"></h5>
+				<div class="row">
+					<table class="centered">
+						<thead>
+							<tr>
+								<th>п/п</th>
+								<th>Название</th>
+								<th>Макет</th>
+								<th>Цена</th>
+								<th>Дата</th>
+								<th>Тираж</th>
+								<th>Оплата</th>
+								<!--<th>Дата оплаты</th>-->
+								<th></th>
+							</tr>
+						</thead>
+						<tbody class="item_container">
+							<tr>
+								<td colspan="8">Нет заказов. Нажмите на <b>плюс</b>, чтобы добавить новый</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12 center">
+				<i class="material-icons green-text add">add_circle_outline</i>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col s12">
+				<h5 class="title_total">Итоговая информация</h5>
+			</div>
+			<div class="col s12 l6">
+				<table class="centered">
+					<thead>
+						<tr>
+							<th>Кол-во</th>
+							<th>Общая сумма, <span class="current_currency">грн.</span></th>
+							<th>Оплачено, <span class="current_currency">грн.</span></th>
+							<th>Долг, <span class="current_currency">грн.</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="total_items">0</td>
+							<td class="total_sum">0</td>
+							<td class="paided">0</td>
+							<td class="debt">0</td>
+						</tr>
+						<tr class="privat_container">
+							<td class="privat"></td>
+							<td class="ex_sum">0</td>
+							<td class="ex_paided">0</td>
+							<td class="ex_debt">0</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+<!--
+						<div class="col s12 l6">
+				<table>
+					<thead>
+						<tr>
+							<th class="privat"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="total_items">0</td>
+					
+						</tr>
+					</tbody>
+				</table>
+			</div>
+-->
+		</div>
+
+	</div>
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h4></h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="item_name" type="text" class="validate">
+					<label for="item_name">Учебное заведение</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="item_maket" type="text" class="validate">
+					<label for="item_maket">Макет</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="item_price" type="number" class="validate">
+					<label for="item_price">Цена</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" id="add_item">Добавить</button>
+		</div>
+	</div>
+
+
+	<div id="mocha"></div>
+
+</body>
+
+</html>
